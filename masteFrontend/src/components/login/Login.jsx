@@ -1,36 +1,22 @@
 import React, { useState } from 'react';
-import axios from 'axios'
-import { Navigate, useNavigate } from 'react-router-dom';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Add your login logic here, e.g., axios call
     try {
-
-      const data = {
-        username,
-        password
-      }
-      // console.log(data);
-      const response = await axios.post(`http://localhost:8000/api/v1/admins/login`,data)
-      console.log(response.data);
-      localStorage.setItem(response.data.accessToken)
-      navigate('/dashboard')
-      if(!response.status === 200){
-        setUsername("");
-        setPassword("");
-      }
+      // Simulating login logic
+      console.log('Logged in with:', { username, password });
     } catch (error) {
-      console.error('Login failed', error.response.data.message); // Handle error
+      console.error('Login failed', error); // Handle error
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
+    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
       <h2 className="text-3xl mb-6 text-center text-gray-700 font-bold">Logo</h2>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
@@ -64,9 +50,9 @@ function Login() {
         <button
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline"
           type="submit"
-          // onClick={handleSubmit}
+          onClick={handleSubmit}
         >
-          Login
+          Submit
         </button>
       </div>
     </form>

@@ -1,10 +1,13 @@
+import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 <link href=".././tailwind.css" rel="stylesheet"></link>;
+
 
 function SubHeader() {
   const [openDropdown, setOpenDropdown] = useState(null);
   const dropdownRef = useRef(null);
+  const Navigate = useNavigate()
 
   const toggleDropdown = (dropdown) => {
     setOpenDropdown(openDropdown === dropdown ? null : dropdown);
@@ -22,6 +25,15 @@ function SubHeader() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      const resposne = await axios.post(`http://localhost:8000/api/v1/admins/logout`)
+      Navigate('/login')
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className='flex justify-between bg-white font-bold px-20 shadow-xl'>
@@ -62,7 +74,7 @@ function SubHeader() {
         </ul>
       </div>
       <div>
-        <button to="/logout">Logout</button>
+        <button onClick={handleLogout} to="/logout">Logout</button>
       </div>
     </div>
   );

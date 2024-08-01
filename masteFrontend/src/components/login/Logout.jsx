@@ -7,11 +7,11 @@ function Logout() {
   useEffect(() => {
     // Perform logout operations here, e.g., clearing local storage, cookies, etc.
     // Example:
-    
+    localStorage.removeItem('authToken');
     
     // Redirect to login page
     navigate('/login');
-  }, []);
+  }, [navigate]);
 
   return null;
 }
